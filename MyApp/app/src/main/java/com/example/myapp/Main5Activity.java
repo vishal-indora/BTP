@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -106,6 +108,12 @@ public class Main5Activity extends AppCompatActivity {
         setSg.setCircleColor(Color.RED);
         setSg.setLineWidth(4f);
         setSg.setValueTextSize(0);
+
+        //Information
+        Description descriptionAg = mChartAg.getDescription();
+        descriptionAg.setEnabled(false);
+        Description descriptionSg = mChartSg.getDescription();
+        descriptionSg.setEnabled(false);
 
 
         ArrayList<ILineDataSet> dataSetsAg = new ArrayList<>();
