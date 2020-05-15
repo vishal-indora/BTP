@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".Main5Activity">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linear">
 
+    <Button
+        android:id="@+id/buttonAg"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="AG vs Time" />
+
+    <Button
+        android:id="@+id/buttonSg"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="SG Vs Time" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <com.github.mikephil.charting.charts.LineChart
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:id="@+id/linechartAg">
 
     </com.github.mikephil.charting.charts.LineChart>
@@ -20,8 +52,7 @@ tools:context=".Main5Activity">
         android:id="@+id/linechartSg">
 
     </com.github.mikephil.charting.charts.LineChart>
-
-
+    </RelativeLayout>
 
 
 </RelativeLayout>
