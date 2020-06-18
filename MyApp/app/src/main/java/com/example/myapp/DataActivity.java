@@ -2,25 +2,21 @@ package com.example.myapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.MultiAutoCompleteTextView;
 import android.widget.TableLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Main4Activity extends AppCompatActivity {
+public class DataActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main4);
+        setContentView(R.layout.activity_data);
         Thread thread = new Thread() {
             public void run() {
                 try{

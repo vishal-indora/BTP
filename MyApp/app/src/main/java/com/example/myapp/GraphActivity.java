@@ -6,23 +6,19 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.OnChartGestureListener;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 
-public class Main5Activity extends AppCompatActivity {
+public class GraphActivity extends AppCompatActivity {
 
-    private static final String TAG = "Main5Activity";
+    private static final String TAG = "GraphActivity";
 
     private LineChart mChartAg;
     private LineChart mChartSg;
@@ -30,7 +26,7 @@ public class Main5Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main5);
+        setContentView(R.layout.activity_graph);
 
         mChartAg = (LineChart) findViewById(R.id.linechartAg);
         mChartSg = (LineChart) findViewById(R.id.linechartSg);
