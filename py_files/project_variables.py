@@ -1,6 +1,9 @@
 import random
 import time
 import datetime
+import decimal
+
+decimal.getcontext().prec = 10
 
 """Note: Use 24 Hour Clock for the code to work"""
 
@@ -18,7 +21,6 @@ Next Block Time -> next_block
 Time Elapsed -> time_elapsed
 Time Remaining -> Time Remaining
 """
-
 """Initialization"""
 
 # Update in intervals of 15 minutes (1 time block)
@@ -52,7 +54,11 @@ def update_values_15_min():
 
     frequency = round(49.5 + random.random() * 1.5, 2)
 
-    current_block_number = 1 if current_block_number == 96 else current_block_number + 1
+    if current_block_number == 96:
+        current_block_number = 1
+        update_values_1_day()
+    else:
+        current_block_number += 1
 
     next_block_start = current_block_end
     current_block = next_block
@@ -111,7 +117,7 @@ next_block_place = 1 if current_block_place == 4 else current_block_place + 1
 
 current_block_number = (int(t_hh) * 60 + int(t_mm)) // 15 + 1
 current_block_start = t_hh + ":" + digit_convert((int(t_mm) // 15) * 15)
-next_block_start = (str(((int(t_hh) + 1) % 24)) if current_block_place == 4 else t_hh) + ":" + function(t_mm)
+next_block_start = digit_convert(((int(t_hh) + 1) % 24) if current_block_place == 4 else t_hh) + ":" + function(t_mm)
 current_block_end = next_block_start
 next_block_end = digit_convert((int(next_block_start[:2]) + 1) % 24) + ":" + "00" if next_block_place == 4 else digit_convert(int(next_block_start[:2])) + ":" + digit_convert(int(next_block_start[-2:]) + 15)
 
@@ -143,15 +149,14 @@ else waits for 1 minute and checks again
 
 while True:
     x = str(datetime.datetime.now().time())
-    time_elapsed_remaining(x)
-
-    if x[:8] == '00:00:00':
-        update_values_1_day()
 
     if x[:8] == next_block_start + ':00':
         print("\n Next block started... \n")
+        print(x)
         update_values_15_min()
 
-    print_values()
+    time_elapsed_remaining(x)
 
-    time.sleep(1)
+    print_values()
+    print(x)
+    time.sleep(1 - float('0.' + x[-6:]))
