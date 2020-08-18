@@ -44,7 +44,7 @@ def function(time_m: str, blk: str = 'n') -> str:
 
 
 def update_values_15_min():
-    global dc, sg, ag, frequency, current_block, next_block, current_block_number
+    global dc, sg, ag, frequency, current_block, next_block, current_block_number, next_block_start, current_block_end
 
     dc = round(150 + random.random() * 50, 2)
     sg = round(150 + random.random() * 50, 2)
@@ -54,8 +54,10 @@ def update_values_15_min():
 
     current_block_number = 1 if current_block_number == 96 else current_block_number + 1
 
+    next_block_start = current_block_end
     current_block = next_block
     next_block = get_next_from_current(current_block)
+    current_block_end = current_block[-5:]
 
 
 # Update value every day
