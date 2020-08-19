@@ -149,11 +149,9 @@ else waits for 1 minute and checks again
 
 while True:
     x = str(datetime.datetime.now().time())
-    print(x, x[:8], current_block, next_block, next_block_start, current_block_end)
 
-    if time_remaining == '15:00':
+    if time_remaining == '00:01':
         print("\n Next block started... \n")
-        print(x)
         update_values_15_min()
 
     time_elapsed_remaining(x)
