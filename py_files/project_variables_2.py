@@ -74,4 +74,5 @@ ag = round(150 + random.random() * 50, 2)
 frequency = round(49.5 + random.random() * 1.5, 2)
 
 # Updated every 24 hours
+random.seed(int((str(datetime.date.today())[-2:])))
 fuel_price = round(2 + random.random() * 8, 2)
