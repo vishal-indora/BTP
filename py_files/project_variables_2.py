@@ -61,6 +61,16 @@ def block_number(n):
         return n
 
 
+# Defines the seed input for random functions (for 15 minute values)
+def function_seed(blk_no, day, mon):
+    return (96 * 96) * blk_no + 96 * day + mon
+
+
+# Defines the seed input for random functions (for 1 day values)
+def function_seed_day(day, mon):
+    return 32 * day + mon
+
+
 """Read time from the system clock, using that, Assign current block number, current block and next block """
 t = str(datetime.datetime.now().time())
 t_hh, t_mm, t_ss = t[:2], t[3:5], t[6:8]
@@ -84,10 +94,13 @@ time_remaining_mm, time_remaining_ss = digit_convert(int(time_remaining_in_secon
 time_elapsed = time_elapsed_mm + ":" + time_elapsed_ss
 time_remaining = time_remaining_mm + ":" + time_remaining_ss
 
+# Date calculation (used in seeding of random functions)
+date = str(datetime.date.today())
+date_day = int(date[-2:])
+date_mon = int(date[-5:-3])
 
 """Randomizing the values as per the specified ranges"""
-
-random.seed(current_block_number)
+random.seed(function_seed(block_number(current_block_number), date_day, date_mon))
 # Update in intervals of 15 minutes (1 time block)
 dc = round(150 + random.random() * 50, 2)
 sg = round(150 + random.random() * 50, 2)
@@ -167,18 +180,18 @@ net_gain = fuel + total_charge
 
 
 # SG for the next four blocks
-random.seed(block_number(current_block_number + 1))
+random.seed(function_seed(block_number(current_block_number + 1), date_day, date_mon))
 sg_plus_one = round(150 + random.random() * 50, 2)
 
-random.seed(block_number(current_block_number + 2))
+random.seed(function_seed(block_number(current_block_number + 2), date_day, date_mon))
 sg_plus_two = round(150 + random.random() * 50, 2)
 
-random.seed(block_number(current_block_number + 3))
+random.seed(function_seed(block_number(current_block_number + 3), date_day, date_mon))
 sg_plus_three = round(150 + random.random() * 50, 2)
 
-random.seed(block_number(current_block_number + 4))
+random.seed(function_seed(block_number(current_block_number + 4), date_day, date_mon))
 sg_plus_four = round(150 + random.random() * 50, 2)
 
 # Updated every 24 hours
-random.seed(int((str(datetime.date.today())[-2:])))
+random.seed(function_seed_day(date_day, date_mon))
 fuel_price = round(2 + random.random() * 8, 2)
