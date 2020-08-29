@@ -212,8 +212,24 @@ total_charge_add = ui_dev_charge_above_and_150 + ui_dev_charge_above_and_012 + u
 fuel = deviation * 250 * 151.4 / 100 * (-1)
 net_gain = fuel + total_charge
 
+
+"Previous Block Number and Time"
+previous_block_number = 96 if current_block_number == 1 else current_block_number - 1
+previous_block_place = 4 if current_block_place == 1 else current_block_place - 1
+
+previous_block_end = current_block_start
+
+# ----
+previous_block_start_mm = digit_convert((int(previous_block_end[-2:]) - 15) % 60)
+previous_block_start_hh = digit_convert(int(t_hh) - 1) if current_block_place == 1 else t_hh
+# ----
+
+previous_block_start = previous_block_start_hh + ":" + previous_block_start_mm
+
+previous_block = previous_block_start + "-" + previous_block_end
+
 """Previous Block Data"""
-# Same parameters calculated; Added a previous_ prefix to differentiate
+# Same parameters calculated; Added a 'previous_' prefix to differentiate
 
 random.seed(function_seed(current_block_number - 1, date_day, date_mon))
 previous_dc = round(150 + random.random() * 50, 2)
@@ -260,3 +276,4 @@ sg_plus_four = round(150 + random.random() * 50, 2)
 # Updated every 24 hours
 random.seed(function_seed_day(date_day, date_mon))
 fuel_price = round(2 + random.random() * 8, 2)
+
