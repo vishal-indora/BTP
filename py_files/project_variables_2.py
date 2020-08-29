@@ -71,6 +71,91 @@ def function_seed_day(day, mon):
     return 32 * day + mon
 
 
+# Take frequency as input and output the deviation rate
+def deviation_rate(f):
+    if 49.48 <= f <= 50.00:
+        return 3.0304
+    elif f == 50.01:
+        return 2.5063
+    elif f == 50.02:
+        return 1.8798
+    elif f == 50.03:
+        return 1.2532
+    elif f == 50.04:
+        return 0.6266
+    else:
+        return 0
+
+
+def ui_dev_charge_calculate(dev, f, rs):
+    if dev <= 0 and f >= 49.85:
+        return round(rs * dev * f, 2)
+    else:
+        return 0
+
+
+def ui_charge_above_and_150_calculate(dev, f, s, a, rs):
+    if f >= 49.85 and 0.12 * s <= 150:
+        if 0.85 * s <= a < 0.88 * s:
+            return round(-1 * 50 * (-dev - 0.12 * s), 2)
+        elif 0.8 * s <= a < 0.85 * s:
+            return round((-1 * (100 * (-dev - 0.15 * s) + 1.5 * s)) * rs, 2)
+        else:
+            return round((-1 * (250 * (-dev - 0.2 * s) + 6.5 * s)) * rs, 2)
+    else:
+        return 0
+
+
+def ui_dev_charge_above_and_012_calculate(dev, f, s, rs):
+    if f >= 49.85 and 0.12 * s > 150:
+        if 150 < dev <= 200:
+            return round((- 1 * (50 * (- dev - 150)) * rs), 2)
+        elif 200 < -dev <= 250:
+            return round((- 1 * (100 * (-dev - 200) + 2500) * rs), 2)
+        elif -dev > 250:
+            return round((- 1 * (250 * (- dev - 250) + 7500)) * rs, 2)
+        else:
+            return 0
+    else:
+        return 0
+
+
+def ui_dev_charge_below_dc_calculate(dev, f, s, a, rs):
+    if a <= s and f < 49.85:
+        return round(dev * rs * 250, 2)
+    else:
+        return 0
+
+
+def ui_dev_charge_below_dc_add_calculate(dev, f, s, a, rs):
+    if a <= s and f < 49.85:
+        return round(dev * rs * 250, 2)
+    else:
+        return 0
+
+
+def oi_dev_charge_calculate(dev, s, a, rs):
+    if a > s and dev > 0.12 * s and 0.12 * s < 150:
+        return round(0.12 * s * rs * 250, 2)
+    elif a > s and dev < s * 0.12 and dev < 150:
+        return round(dev * rs * 250, 2)
+    elif a > s and 0.12 * s > 150:
+        return round(150 * rs * 250, 2)
+    elif a > s and 0.12 * s < 150:
+        return round(0.12 * s * rs * 250, 2)
+    else:
+        return 0
+
+
+def oi_dev_charge_add_calculate(dev, f, s, a):
+    if a > s > 400 and f >= 50.1:
+        return round(dev * 250 * min(50.03, 0) / 100, 2)
+    elif a > s and s <= 400 and f >= 50.1 and dev > 48:
+        return round((dev - 48) * 250 * min(50.03, 0) / 100, 2)
+    else:
+        return 0
+
+
 """Read time from the system clock, using that, Assign current block number, current block and next block """
 t = str(datetime.datetime.now().time())
 t_hh, t_mm, t_ss = t[:2], t[3:5], t[6:8]
@@ -108,68 +193,17 @@ ag = round(150 + random.random() * 50, 2)
 frequency = round(49.5 + random.random() * 1.5, 2)
 deviation = ag - sg
 
-rupees = 0
-if 49.48 <= frequency <= 50.00:
-    rupees = 3.0304
-elif frequency == 50.01:
-    rupees = 2.5063
-elif frequency == 50.02:
-    rupees = 1.8798
-elif frequency == 50.03:
-    rupees = 1.2532
-elif frequency == 50.04:
-    rupees = 0.6266
+rupees = deviation_rate(frequency)
+
 
 # Charges
-ui_dev_charge = 0
-if deviation <= 0 and frequency >= 49.85:
-    ui_dev_charge = round(rupees * deviation * frequency, 2)
-
-
-ui_dev_charge_above_and_150 = 0
-if frequency >= 49.85 and 0.12 * sg <= 150:
-    if 0.85 * sg <= ag < 0.88 * sg:
-        ui_dev_charge_above_and_150 = round(-1 * 50 * (-deviation - 0.12 * sg), 2)
-    elif 0.8 * sg <= ag < 0.85 * sg:
-        ui_dev_charge_above_and_150 = round((-1 * (100 * (-deviation - 0.15 * sg) + 1.5 * sg)) * rupees, 2)
-    else:
-        ui_dev_charge_above_and_150 = round((-1 * (250 * (-deviation - 0.2 * sg) + 6.5 * sg)) * rupees, 2)
-
-
-ui_dev_charge_above_and_012 = 0
-if frequency >= 49.85 and 0.12 * sg > 150:
-    if 150 < deviation <= 200:
-        ui_dev_charge_above_and_012 = round((- 1 * (50 * (- deviation - 150)) * rupees), 2)
-    elif 200 < -deviation <= 250:
-        ui_dev_charge_above_and_012 = round((- 1 * (100 * (-deviation - 200) + 2500) * rupees), 2)
-    elif -deviation > 250:
-        ui_dev_charge_above_and_012 = round((- 1 * (250 * (- deviation - 250) + 7500)) * rupees, 2)
-
-
-ui_dev_charge_below_dc = 0
-if ag <= sg and frequency < 49.85:
-    ui_dev_charge_below_dc = round(deviation * rupees * 250, 2)
-
-ui_dev_charge_below_dc_add = 0
-if ag <= sg and frequency < 49.85:
-    ui_dev_charge_below_dc_add = round(deviation * rupees * 250, 2)
-
-oi_dev_charge = 0
-if ag > sg and deviation > 0.12 * sg and 0.12 * sg < 150:
-    oi_dev_charge = round(0.12 * sg * rupees * 250, 2)
-elif ag > sg and deviation < sg * 0.12 and deviation < 150:
-    oi_dev_charge = round(deviation * rupees * 250, 2)
-elif ag > sg and 0.12 * sg > 150:
-    oi_dev_charge = round(150 * rupees * 250, 2)
-elif ag > sg and 0.12 * sg < 150:
-    oi_dev_charge = round(0.12 * sg * rupees * 250, 2)
-
-oi_dev_charge_add = 0
-if ag > sg > 400 and frequency >= 50.1:
-    oi_dev_charge_add = round(deviation * 250 * min(50.03, 0) / 100, 2)
-elif ag > sg and sg <= 400 and frequency >= 50.1 and deviation > 48:
-    oi_dev_charge_add = round((deviation - 48) * 250 * min(50.03, 0) / 100, 2)
-
+ui_dev_charge = ui_dev_charge_calculate(deviation, frequency, rupees)
+ui_dev_charge_above_and_150 = ui_charge_above_and_150_calculate(deviation, frequency, sg, ag, rupees)
+ui_dev_charge_above_and_012 = ui_dev_charge_above_and_012_calculate(deviation, frequency, sg, rupees)
+ui_dev_charge_below_dc = ui_dev_charge_below_dc_calculate(deviation, frequency, sg, ag, rupees)
+ui_dev_charge_below_dc_add = ui_dev_charge_below_dc_add_calculate(deviation, frequency, sg, ag, rupees)
+oi_dev_charge = oi_dev_charge_calculate(deviation, sg, ag, rupees)
+oi_dev_charge_add = oi_dev_charge_add_calculate(deviation, frequency, sg, ag)
 
 sum_ui = ui_dev_charge + ui_dev_charge_above_and_150 + ui_dev_charge_above_and_012 + ui_dev_charge_below_dc + ui_dev_charge_below_dc_add
 total_charge = sum_ui + oi_dev_charge + oi_dev_charge_add
@@ -177,6 +211,37 @@ total_charge_add = ui_dev_charge_above_and_150 + ui_dev_charge_above_and_012 + u
 
 fuel = deviation * 250 * 151.4 / 100 * (-1)
 net_gain = fuel + total_charge
+
+"""Previous Block Data"""
+# Same parameters calculated; Added a previous_ prefix to differentiate
+
+random.seed(function_seed(current_block_number - 1, date_day, date_mon))
+previous_dc = round(150 + random.random() * 50, 2)
+previous_sg = round(150 + random.random() * 50, 2)
+previous_ag = round(150 + random.random() * 50, 2)
+previous_frequency = round(49.5 + random.random() * 1.5, 2)
+previous_deviation = previous_ag - previous_sg
+previous_rupees = deviation_rate(previous_frequency)
+
+previous_ui_dev_charge = ui_dev_charge_calculate(previous_deviation, previous_frequency, previous_rupees)
+previous_oi_dev_charge = oi_dev_charge_calculate(previous_deviation, previous_sg, previous_ag, previous_rupees)
+
+previous_ui_dev_charge_above_and_150 = ui_charge_above_and_150_calculate(previous_deviation, previous_frequency, previous_sg, previous_ag, previous_rupees)
+previous_ui_dev_charge_above_and_012 = ui_dev_charge_above_and_012_calculate(previous_deviation, previous_frequency, previous_sg, previous_rupees)
+
+previous_ui_dev_charge_below_dc = ui_dev_charge_below_dc_calculate(previous_deviation, previous_frequency, previous_sg, previous_ag, previous_rupees)
+
+previous_ui_dev_charge_below_dc_add = ui_dev_charge_below_dc_add_calculate(previous_deviation, previous_frequency, previous_sg, previous_ag, previous_rupees)
+previous_oi_dev_charge_add = oi_dev_charge_add_calculate(previous_deviation, previous_frequency, previous_sg, previous_ag)
+
+
+previous_sum_ui = previous_ui_dev_charge + previous_ui_dev_charge_above_and_150 + previous_ui_dev_charge_above_and_012 + previous_ui_dev_charge_below_dc + previous_ui_dev_charge_below_dc_add
+
+previous_total_charge = previous_sum_ui + previous_oi_dev_charge + previous_oi_dev_charge_add
+previous_total_charge_add = previous_ui_dev_charge_above_and_150 + previous_ui_dev_charge_above_and_012 + previous_ui_dev_charge_below_dc_add + previous_oi_dev_charge_add
+
+previous_fuel = previous_deviation * 250 * 151.4 / 100 * (-1)
+previous_net_gain = previous_fuel + previous_total_charge
 
 
 # SG for the next four blocks
