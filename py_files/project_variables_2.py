@@ -215,7 +215,6 @@ net_gain = fuel + total_charge
 
 "Previous Block Number and Time"
 previous_block_number = 96 if current_block_number == 1 else current_block_number - 1
-previous_block_place = 4 if current_block_place == 1 else current_block_place - 1
 
 previous_block_end = current_block_start
 
