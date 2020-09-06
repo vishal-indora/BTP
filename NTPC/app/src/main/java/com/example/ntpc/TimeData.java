@@ -1,0 +1,10 @@
+package com.example.ntpc;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+
+public interface TimeData {
+
+    @GET("TimeData")
+    Call<TimeDataPojo> getPOJOs();
+}
