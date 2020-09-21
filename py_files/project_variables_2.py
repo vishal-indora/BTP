@@ -382,6 +382,7 @@ def sign_violations_calculate(dev_array):
                 return total - 12
             else:
                 return 0
+    return 0
 
 
 """Read time from the system clock, using that, Assign current block number, current block and next block """
