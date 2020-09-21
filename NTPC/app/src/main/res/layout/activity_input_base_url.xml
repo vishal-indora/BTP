@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/baseUrl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/photo2"
+    tools:context=".InputBaseUrlActivity">
+
+    <EditText
+        android:id="@+id/enterUrl"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="250dp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="italic"
+        android:textAlignment="center"
+        android:ems="10"
+        android:background="#ffff"
+        android:hint="Enter Base Url"
+        android:inputType="textPersonName"
+        android:padding="5dp"
+        android:text="http://ec2-54-236-56-160.compute-1.amazonaws.com/"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="254dp"
+        android:gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="400dp"
+        android:background="@drawable/custom_button"
+        android:text="Submit" />
+
+</RelativeLayout>
