@@ -27,7 +27,7 @@ public class InputBaseUrlActivity extends AppCompatActivity {
 
         editText = (EditText)findViewById(R.id.enterUrl);
         submitButton = (Button)findViewById(R.id.submitButton);
-        final Intent intent = new Intent(this, FetchingAndDisplayingActivity.class);
+        final Intent intent = new Intent(this, DisplayMenuActivity.class);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override

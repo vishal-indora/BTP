@@ -1,5 +1,7 @@
 package com.example.ntpc;
 
+import java.util.ArrayList;
+
 import static java.lang.Math.abs;
 
 public class PowerPlantDataPojo {
@@ -56,15 +58,43 @@ public class PowerPlantDataPojo {
 
     private String PreviousBlock;
 
+    private ArrayList<Float> PastDevArray;
+
+    private ArrayList<Float> MLXBlockNumber;
+
+    private ArrayList<Float> MLYPredictedValue;
+
+    private ArrayList<Float> MLYActualValue;
+
+    private ArrayList<Float> PlotYSg;
+
+    private ArrayList<Float> PlotYAg;
+
+    private ArrayList<Float> PlotXBlockNumber;
+
+    private int ContinuousPositive;
+
+    private int ContinuousNegative;
+
+    private int Alarm;
+
+    private String AlarmMessage;
+
+    private int SignViolations;
+
+    private Double AgBySgPercent;
+
+    private Double PreviousAgBySgPercent;
+
     public PowerPlantDataPojo() {
     }
 
-    public String  getFrequency() {
+    public String getFrequency() {
         return Double.toString(Frequency);
     }
 
     public String getAg() {
-        return  Double.toString(Ag);
+        return Double.toString(Ag);
     }
 
     public String getFuelPrice() {
@@ -163,4 +193,62 @@ public class PowerPlantDataPojo {
     public String getPreviousBlock() {
         return PreviousBlock;
     }
+
+    public ArrayList<Float> getPastDevArray() {
+        return PastDevArray;
+    }
+
+    public ArrayList<Float> getPlotYSg() {
+        return PlotYSg;
+    }
+
+    public ArrayList<Float> getPlotYAg() {
+        return PlotYAg;
+    }
+
+    public ArrayList<Float> getPlotXBlockNumber() {
+        return PlotXBlockNumber;
+    }
+
+    public ArrayList<Float> getMLXBlockNumber() {
+        return MLXBlockNumber;
+    }
+
+    public ArrayList<Float> getMLYPredictedValue() {
+        return MLYPredictedValue;
+    }
+
+    public ArrayList<Float> getMLYActualValue() {
+        return MLYActualValue;
+    }
+
+
+    public String getContinuousPositive() {
+        return Integer.toString(ContinuousPositive);
+    }
+
+    public String getContinuousNegative() {
+        return Integer.toString(ContinuousNegative);
+    }
+
+    public String getAlarm() {
+        return Integer.toString(Alarm);
+    }
+
+    public String getAlarmMessage() {
+        return AlarmMessage;
+    }
+
+    public String getSignViolations() {
+        return Integer.toString(SignViolations);
+    }
+
+    public String getAgBySgPercent() {
+        return Double.toString(AgBySgPercent);
+    }
+
+    public String getPreviousAgBySgPercent() {
+        return Double.toString(PreviousAgBySgPercent);
+    }
+
 }

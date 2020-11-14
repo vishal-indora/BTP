@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DisplayMenuActivity"
+    android:background="#212121">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        app:srcCompat="@drawable/photo3" />
+
+    <Button
+        android:id="@+id/buttonMonitorData"
+        android:layout_width="match_parent"
+        android:layout_height="133dp"
+        android:layout_marginTop="350dp"
+        android:background="#424242"
+        android:text="Monitor Data"
+        android:textColor="#ffffff"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonPlotData"
+        android:layout_width="match_parent"
+        android:layout_height="133dp"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="93dp"
+        android:background="#424242"
+        android:text="Plot Data"
+        android:textColor="#ffffff"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+</RelativeLayout>

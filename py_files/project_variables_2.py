@@ -249,7 +249,6 @@ def past_deviations_calculate(cur_blk_no):
     i = 1
 
     while i <= cur_blk_no:
-
         # # Day change
         # if cur_blk_no == 0:
         #     cur_blk_no = 96
@@ -319,7 +318,7 @@ def alarm_calculation(dev_array):
             total += 1
             i = 10
             while i >= 1:
-                if dev_array[-1-i] > 20:
+                if dev_array[-1 - i] > 20:
                     total += 1
                     i -= 1
                 else:
@@ -333,7 +332,7 @@ def alarm_calculation(dev_array):
             total += 1
             i = 10
             while i >= 1:
-                if dev_array[-1-i] < -20:
+                if dev_array[-1 - i] < -20:
                     total += 1
                     i -= 1
                 else:
@@ -359,7 +358,7 @@ def sign_violations_calculate(dev_array):
             total += 1
             i = 1
             while i <= len(dev_array) - 1:
-                if dev_array[-1-i] > 20:
+                if dev_array[-1 - i] > 20:
                     total += 1
                     i += 1
                 else:
@@ -373,7 +372,7 @@ def sign_violations_calculate(dev_array):
             total += 1
             i = 1
             while i <= len(dev_array) - 1:
-                if dev_array[-1-i] < -20:
+                if dev_array[-1 - i] < -20:
                     total += 1
                     i += 1
                 else:
@@ -395,7 +394,9 @@ current_block_number = (int(t_hh) * 60 + int(t_mm)) // 15 + 1
 current_block_start = t_hh + ":" + digit_convert((int(t_mm) // 15) * 15)
 next_block_start = digit_convert(((int(t_hh) + 1) % 24) if current_block_place == 4 else t_hh) + ":" + function(t_mm)
 current_block_end = next_block_start
-next_block_end = digit_convert((int(next_block_start[:2]) + 1) % 24) + ":" + "00" if next_block_place == 4 else digit_convert(int(next_block_start[:2])) + ":" + digit_convert(int(next_block_start[-2:]) + 15)
+next_block_end = digit_convert(
+    (int(next_block_start[:2]) + 1) % 24) + ":" + "00" if next_block_place == 4 else digit_convert(
+    int(next_block_start[:2])) + ":" + digit_convert(int(next_block_start[-2:]) + 15)
 
 current_block = current_block_start + "-" + current_block_end
 next_block = next_block_start + "-" + next_block_end
@@ -403,7 +404,8 @@ next_block = next_block_start + "-" + next_block_end
 """From the time (used above) find the time elapsed and the time remaining"""
 time_elapsed_mm, time_elapsed_ss = digit_convert(int(t_mm) % 15), digit_convert(int(t_ss))
 time_remaining_in_seconds = digit_convert(15 * 60 - (int(time_elapsed_mm) * 60 + int(time_elapsed_ss)))
-time_remaining_mm, time_remaining_ss = digit_convert(int(time_remaining_in_seconds) // 60), digit_convert(int(time_remaining_in_seconds) % 60)
+time_remaining_mm, time_remaining_ss = digit_convert(int(time_remaining_in_seconds) // 60), digit_convert(
+    int(time_remaining_in_seconds) % 60)
 
 time_elapsed = time_elapsed_mm + ":" + time_elapsed_ss
 time_remaining = time_remaining_mm + ":" + time_remaining_ss
@@ -423,9 +425,7 @@ frequency = round(49.5 + random.random() * 1.5, 2)
 deviation = round(ag - sg, 2)
 ag_by_sg_percent = round((ag / sg) * 100, 2)
 
-
 rupees = deviation_rate(frequency)
-
 
 # Charges
 ui_dev_charge = ui_dev_charge_calculate(deviation, frequency, rupees)
@@ -442,7 +442,6 @@ total_charge_add = ui_dev_charge_above_and_150 + ui_dev_charge_above_and_012 + u
 
 fuel = round(deviation * 250 * 151.4 / 100 * (-1), 2)
 net_gain = round(fuel + total_charge, 2)
-
 
 "Previous Block Number and Time"
 previous_block_number = 96 if current_block_number == 1 else current_block_number - 1
@@ -475,14 +474,18 @@ previous_rupees = deviation_rate(previous_frequency)
 previous_ui_dev_charge = ui_dev_charge_calculate(previous_deviation, previous_frequency, previous_rupees)
 previous_oi_dev_charge = oi_dev_charge_calculate(previous_deviation, previous_sg, previous_ag, previous_rupees)
 
-previous_ui_dev_charge_above_and_150 = ui_charge_above_and_150_calculate(previous_deviation, previous_frequency, previous_sg, previous_ag, previous_rupees)
-previous_ui_dev_charge_above_and_012 = ui_dev_charge_above_and_012_calculate(previous_deviation, previous_frequency, previous_sg, previous_rupees)
+previous_ui_dev_charge_above_and_150 = ui_charge_above_and_150_calculate(previous_deviation, previous_frequency,
+                                                                         previous_sg, previous_ag, previous_rupees)
+previous_ui_dev_charge_above_and_012 = ui_dev_charge_above_and_012_calculate(previous_deviation, previous_frequency,
+                                                                             previous_sg, previous_rupees)
 
-previous_ui_dev_charge_below_dc = ui_dev_charge_below_dc_calculate(previous_deviation, previous_frequency, previous_sg, previous_ag, previous_rupees)
+previous_ui_dev_charge_below_dc = ui_dev_charge_below_dc_calculate(previous_deviation, previous_frequency, previous_sg,
+                                                                   previous_ag, previous_rupees)
 
-previous_ui_dev_charge_below_dc_add = ui_dev_charge_below_dc_add_calculate(previous_deviation, previous_frequency, previous_sg, previous_ag, previous_rupees)
-previous_oi_dev_charge_add = oi_dev_charge_add_calculate(previous_deviation, previous_frequency, previous_sg, previous_ag)
-
+previous_ui_dev_charge_below_dc_add = ui_dev_charge_below_dc_add_calculate(previous_deviation, previous_frequency,
+                                                                           previous_sg, previous_ag, previous_rupees)
+previous_oi_dev_charge_add = oi_dev_charge_add_calculate(previous_deviation, previous_frequency, previous_sg,
+                                                         previous_ag)
 
 previous_sum_ui = previous_ui_dev_charge + previous_ui_dev_charge_above_and_150 + previous_ui_dev_charge_above_and_012 + previous_ui_dev_charge_below_dc + previous_ui_dev_charge_below_dc_add
 
@@ -506,7 +509,7 @@ alarm, alarm_message = alarm_calculation([past_dev_array])
 # print(alarm, alarm_message)
 sign_violations = sign_violations_calculate(past_dev_array)
 
-"Next Block Data"
+"""Next Block Data"""
 random.seed(function_seed(block_number(current_block_number + 1), date_day, date_mon))
 sg_plus_one = round(150 + random.random() * 50, 2)
 
@@ -519,6 +522,20 @@ sg_plus_three = round(150 + random.random() * 50, 2)
 random.seed(function_seed(block_number(current_block_number + 4), date_day, date_mon))
 sg_plus_four = round(150 + random.random() * 50, 2)
 
-"Updated every 24 hours"
+"""Updated every 24 hours"""
 random.seed(function_seed_day(date_day, date_mon))
 fuel_price = round(2 + random.random() * 8, 2)
+
+"""Machine Learning"""
+ml_x_block_number = list(map(float, "1  5  9 13 17 21 25 29 33 37 41 45 49 53 57 61 65 69 73 77 81 85 89 93".split()))
+ml_y_predicted_value = list(map(float, "177.59978236 177.30424698 177.20475222 177.27930507 177.50591037 177.8625708  "
+                                       "178.32728687 178.87805692 179.49287714 180.14974156 180.82664201 181.50156821 "
+                                       "182.15250768 182.75744579 183.29436574 183.74124857 184.07607316 184.27681623 "
+                                       "184.32145231 184.18795381 183.85429094 183.29843176 182.49834217 "
+                                       "181.4319859".split()))
+
+ml_y_actual_value = list(map(float, "177.48200039 180.15761821 178.08133878 176.91963417 176.22494649 176.07705779 "
+                                    "177.19595252 178.35765713 180.01945904 181.64818058 182.94999027 183.90737498 "
+                                    "184.63708893 184.98345982 185.53025881 185.68203931 185.76182137 185.7812804  "
+                                    "185.20918467 184.55341506 183.38198093 182.73788675 182.62891613 "
+                                    "181.36018681".split()))

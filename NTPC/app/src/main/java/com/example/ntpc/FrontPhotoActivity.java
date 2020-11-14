@@ -12,11 +12,11 @@ public class FrontPhotoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_front_photo);
-        refresh(5000);
+        refresh(1000);
     }
 
     public void changeActivity() {
-        Intent intent = new Intent(this, MenuActivity.class);
+        Intent intent = new Intent(this, InputBaseUrlActivity.class);
         startActivity(intent);
     }
 

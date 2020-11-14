@@ -56,10 +56,16 @@ public class FetchingAndDisplayingActivity extends AppCompatActivity {
     private TextView textView_current12_2;
     private TextView textView_current13_2;
     private TextView textView_current14_2;
+    private TextView textView_current15_2;
+    private TextView textView_current16_2;
+    private TextView textView_current17_2;
+
     private TextView textView_sgPlusOne;
     private TextView textView_sgPlusTwo;
     private TextView textView_sgPlusThree;
     private TextView textView_sgPlusFour;
+    private TextView textView_continuousNegative;
+    private TextView textView_continuousPositive;
 
     private  String content = "";
 
@@ -98,6 +104,15 @@ public class FetchingAndDisplayingActivity extends AppCompatActivity {
     private String PreviousDeviationRupees;
     private String PreviousTotalDeviationRupees;
 
+    private String ContinuousPositive;
+    private String ContinuousNegative;
+    private String Alarm;
+    private String PreviousAgBySgPercent;
+    private String AgBySgPercent;
+    private String AlarmMessage;
+    private String SignViolations;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +134,7 @@ public class FetchingAndDisplayingActivity extends AppCompatActivity {
         textView_previous3_2 = findViewById(R.id.textView_previous3_2);
         textView_previous4_2 = findViewById(R.id.textView_previous4_2);
         textView_previous5_2 = findViewById(R.id.textView_previous5_2);
-        textView_previous6_2 = findViewById(R.id.textView_previous6_2);
+        //textView_previous6_2 = findViewById(R.id.textView_previous6_2);
         textView_previous7_2 = findViewById(R.id.textView_previous7_2);
         textView_previous8_2 = findViewById(R.id.textView_previous8_2);
         textView_previous9_2 = findViewById(R.id.textView_previous9_2);
@@ -134,7 +149,7 @@ public class FetchingAndDisplayingActivity extends AppCompatActivity {
         textView_current3_2 = findViewById(R.id.textView_current3_2);
         textView_current4_2 = findViewById(R.id.textView_current4_2);
         textView_current5_2 = findViewById(R.id.textView_current5_2);
-        textView_current6_2 = findViewById(R.id.textView_current6_2);
+        //textView_current6_2 = findViewById(R.id.textView_current6_2);
         textView_current7_2 = findViewById(R.id.textView_current7_2);
         textView_current8_2 = findViewById(R.id.textView_current8_2);
         textView_current9_2 = findViewById(R.id.textView_current9_2);
@@ -143,12 +158,14 @@ public class FetchingAndDisplayingActivity extends AppCompatActivity {
         textView_current12_2 = findViewById(R.id.textView_current12_2);
         textView_current13_2 = findViewById(R.id.textView_current13_2);
         textView_current14_2 = findViewById(R.id.textView_current14_2);
+        textView_current15_2 = findViewById(R.id.textView_current15_2);
+        textView_current16_2 = findViewById(R.id.textView_current16_2);
+        textView_current17_2 = findViewById(R.id.textView_current17_2);
 
         textView_sgPlusOne = findViewById(R.id.textView_sgPlusOne);
         textView_sgPlusTwo = findViewById(R.id.textView_sgPlusTwo);
         textView_sgPlusThree = findViewById(R.id.textView_sgPlusThree);
         textView_sgPlusFour = findViewById(R.id.textView_sgPlusFour);
-
         callApi();
 
     }
@@ -168,6 +185,7 @@ public class FetchingAndDisplayingActivity extends AppCompatActivity {
         textView_current2_2.setText(CurrentBlockTime);
         textView_current3_2.setText(Dc);
         textView_current4_2.setText(Sg);
+        textView_current5_2.setText(AgBySgPercent);
         textView_current8_2.setText(Deviation);
         textView_current9_2.setText(DeviationRate);
         textView_current10_2.setText(Deviation_Rs);
@@ -175,11 +193,15 @@ public class FetchingAndDisplayingActivity extends AppCompatActivity {
         textView_current12_2.setText(TotalDeviationRupees);
         textView_current13_2.setText(FuelCost);
         textView_current14_2.setText(NetGain);
+        textView_current15_2.setText(ContinuousPositive);
+        textView_current16_2.setText(ContinuousNegative);
+        textView_current17_2.setText(SignViolations);
 
         textView_previous1_2.setText(PreviousBlockNumber);
         textView_current2_2.setText(PreviousBlock);
         textView_previous3_2.setText(PreviousDc);
         textView_previous4_2.setText(PreviousSg);
+        textView_previous5_2.setText(PreviousAgBySgPercent);
         textView_previous7_2.setText(PreviousFrequency);
         textView_previous8_2.setText(PreviousDeviation);
         textView_previous9_2.setText(PreviousDeviationRate);
@@ -313,6 +335,16 @@ public class FetchingAndDisplayingActivity extends AppCompatActivity {
                 PreviousDeviationRupees = powerPlantDataPojo.getPreviousDeviationRupees();
                 PreviousBlockNumber = powerPlantDataPojo.getPreviousBlockNumber();
                 PreviousTotalDeviationRupees = Double.toString(Double.parseDouble(PreviousAdditionalDeviationCharge)+Double.parseDouble(PreviousDeviationRupees));
+                ContinuousPositive = powerPlantDataPojo.getContinuousPositive();
+                ContinuousNegative = powerPlantDataPojo.getContinuousNegative();
+                SignViolations = powerPlantDataPojo.getSignViolations();
+                Alarm = powerPlantDataPojo.getAlarm();
+                AlarmMessage = powerPlantDataPojo.getAlarmMessage();
+                AgBySgPercent = powerPlantDataPojo.getAgBySgPercent();
+                PreviousAgBySgPercent = powerPlantDataPojo.getPreviousAgBySgPercent();
+                if(Alarm == "1"){
+                    Toast.makeText(getApplicationContext(), AlarmMessage, Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
